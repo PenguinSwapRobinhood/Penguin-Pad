@@ -25,6 +25,7 @@ contract CurveLaunch is PenguinERC20 {
     event Graduated(uint256 quoteReserve, uint256 tokenReserve);
     event LiquidityBurned(bytes32 indexed poolId, uint256 positionTokenId, uint128 liquidity);
     event CreatorFeesClaimed(address indexed creator, uint256 amount);
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
     address public factory;
     address public creator;
@@ -91,6 +92,17 @@ contract CurveLaunch is PenguinERC20 {
         virtualQuote = phantomQuote_;
         virtualToken = LibMath.initialVirtualToken(phantomQuote_, graduationQuote_);
         _mint(address(this), LibMath.TOTAL_SUPPLY);
+        emit OwnershipTransferred(msg.sender, address(0));
+    }
+
+    /// @notice No owner. Renounced in `initialize`, before the first trade.
+    function owner() external pure returns (address) {
+        return address(0);
+    }
+
+    /// @notice Already renounced. Scanners that call this still see `owner() == address(0)`.
+    function renounceOwnership() external {
+        emit OwnershipTransferred(address(0), address(0));
     }
 
     function penguinProtocol() public view returns (address) {

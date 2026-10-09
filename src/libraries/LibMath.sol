@@ -16,10 +16,11 @@ library LibMath {
     uint256 internal constant PROD_LAUNCH_FEE = WAD / 4000;
     uint256 internal constant PROD_PRESALE_LAUNCH_FEE = 1e17;
     uint256 internal constant PROD_GRADUATION_QUOTE = 42 * 1e17;
-    uint256 internal constant PROD_PHANTOM_QUOTE = 3 * 1e17;
+    /// @dev graduation / 3. Last curve price then equals 4.2 ETH / 200M LP.
+    uint256 internal constant PROD_PHANTOM_QUOTE = 14 * 1e17;
     uint256 internal constant PROD_MIN_SOFT_CAP = 25 * 1e16;
 
-    /// @dev Cheap live-test create + curve scale. Same 0.3/4.2 phantom ratio as prod.
+    /// @dev Cheap live-test create + curve scale. Same 1.4/4.2 phantom ratio as prod.
     uint256 internal constant TEST_LAUNCH_FEE = WAD / 1_000_000;
     uint256 internal constant TEST_PRESALE_LAUNCH_FEE = 1e13;
     uint256 internal constant TEST_GRADUATION_QUOTE = 1e15;
