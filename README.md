@@ -2,13 +2,14 @@
 
 Penguin Pad is a launchpad on Robinhood Chain (chain id 4663). A creator can open a quick launch on a bonding curve, or a presale. Both list on Uniswap v4. The pool uses PenguinHook. The opening liquidity position is sent to `0x000000000000000000000000000000000000dEaD` and is not recoverable.
 
-The contracts in this repository are the source deployed for the live factories below. They are not proxies. There is no upgrade path.
+The contracts in this repository are not proxies. There is no upgrade path. New quick launches use the CurveFactory in this source. Tokens already created stay on the old CurveFactory.
 
 ## Addresses
 
 | Contract | Address |
 | --- | --- |
-| CurveFactory | `0x09f1B640d53C9C4C1807BF5Aa306745128Ee4375` |
+| CurveFactory | `0x6747bcc869c39d964A36E4796bead3FA3b377b73` |
+| Old CurveFactory | `0x09f1B640d53C9C4C1807BF5Aa306745128Ee4375` |
 | PresaleFactory | `0x2d49B4B881CD27b917e4321839fc4B28a95d12a0` |
 | PenguinHook | `0x19B4517dED421d738051545e6C5d461ef13460cc` |
 | V4Graduate | `0x4aE34aDDDDA5f74E6bBf2AA4E7fa1709C4A02f55` |
@@ -58,7 +59,7 @@ The owner cannot pause trading, change fee rates, seize listings, or withdraw co
 
 Solidity 0.8.24, optimizer on, 200 runs, via IR, EVM shanghai, `bytecodeHash` none. That matches `foundry.toml`.
 
-`LibMath.sol` in this tree is the library deployed with the live PresaleFactory. CurveFactory, PenguinHook, and V4Graduate were compiled with an earlier copy of that library. The curve, fee, and graduation helpers are the same. To reproduce those three bytecodes exactly, use the Standard JSON already submitted for each address on Blockscout.
+`LibMath.sol` in this tree is the library for the CurveFactory above. The production phantom is 1.4 ETH. The old CurveFactory, the live PresaleFactory, PenguinHook, and V4Graduate were compiled from the prior revision of that library. To reproduce those bytecodes, use the Standard JSON already submitted for each address on Blockscout.
 
 ```bash
 forge build
